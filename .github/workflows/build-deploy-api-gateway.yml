@@ -43,7 +43,7 @@ jobs:
           curl -L https://github.com/buildpacks-community/kpack-cli/releases/download/v0.13.0/kp-linux-amd64-0.13.0 -o build-service
           chmod +x build-service
       - name: Build image in Cloud Build Service
-        run: ./build-service image save spring-petclinic-api-gateway --tag ${{ secrets.ACR_LOGIN_SERVER }}/spring-petclinic-api-gateway --replace-additional-tag ${{ secrets.ACR_LOGIN_SERVER }}/${{ secrets.IMAGE_REPO }}:${{ github.sha }} --git https://github.com/${{ github.repository }}.git --git-revision ${{ github.sha }} --cluster-builder ${{ secrets.BUILDER }} --service-account ${{ secrets.SERVICE_ACCOUNT }} -n ${{ secrets.NAMESPACE }} -e BP_MAVEN_BUILT_MODULE=spring-petclinic-api-gateway -w
+        run: ./build-service image save spring-petclinic-api-gateway --tag ${{ secrets.ACR_LOGIN_SERVER }}/spring-petclinic-api-gateway --replace-additional-tag ${{ secrets.ACR_LOGIN_SERVER }}/spring-petclinic-api-gateway:${{ github.sha }} --git https://github.com/${{ github.repository }}.git --git-revision ${{ github.sha }} --cluster-builder ${{ secrets.BUILDER }} --service-account ${{ secrets.SERVICE_ACCOUNT }} -n ${{ secrets.NAMESPACE }} -e BP_MAVEN_BUILT_MODULE=spring-petclinic-api-gateway -w
       - name: Deploy Image to AKS
         id: deploy-aks
         uses: Azure/k8s-deploy@v4
@@ -51,6 +51,6 @@ jobs:
           namespace: ${{ secrets.NAMESPACE }}
           manifests: |
              deploy/deployment.yaml
-          images: '${{ secrets.ACR_LOGIN_SERVER }}/${{ secrets.IMAGE_REPO }}:${{ github.sha }}'
+          images: '${{ secrets.ACR_LOGIN_SERVER }}/spring-petclinic-api-gateway:${{ github.sha }}'
           pull-images: false 
           imagepullsecrets: '${{ secrets.IMAGE_PULL_SECRET }}'
