@@ -1,17 +1,17 @@
 # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Build spring-petclinic-customers-service source code to container image and deploy to AKS
+name: Rebase Image when Stack and Buildpack Version changes
 
 on:
   push:
     branches: [ main ]
     paths:
-      - 'spring-petclinic-customers-service/**'
+      - 'deploy/**'
   pull_request:
     branches: [ main ]
     paths:
-      - 'spring-petclinic-customers-service/**'
+      - 'deploy/**'
 
 jobs:
   build:
@@ -42,15 +42,9 @@ jobs:
         run: |
           curl -L https://github.com/buildpacks-community/kpack-cli/releases/download/v0.13.0/kp-linux-amd64-0.13.0 -o build-service
           chmod +x build-service
-      - name: Build image in Cloud Build Service
-        run: ./build-service image save spring-petclinic-customers-service --tag ${{ secrets.ACR_LOGIN_SERVER }}/spring-petclinic-customers-service --replace-additional-tag ${{ secrets.ACR_LOGIN_SERVER }}/spring-petclinic-customers-service:${{ github.sha }} --git https://github.com/${{ github.repository }}.git --git-revision ${{ github.sha }} --cluster-builder ${{ secrets.BUILDER }} --service-account ${{ secrets.SERVICE_ACCOUNT }} -n ${{ secrets.NAMESPACE }} -e BP_MAVEN_BUILT_MODULE=spring-petclinic-customers-service -w
-      - name: Deploy Image to AKS
+      - name: Update Stack and Buildpack Version
         id: deploy-aks
         uses: Azure/k8s-deploy@v4
         with:
-          namespace: ${{ secrets.NAMESPACE }}
           manifests: |
-             deploy/deployment.yaml
-          images: '${{ secrets.ACR_LOGIN_SERVER }}/spring-petclinic-customers-service:${{ github.sha }}'
-          pull-images: false 
-          imagepullsecrets: '${{ secrets.IMAGE_PULL_SECRET }}'
+              deploy/build-service.yaml

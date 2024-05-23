@@ -8,12 +8,10 @@ on:
     branches: [ main ]
     paths:
       - 'spring-petclinic-api-gateway/**'
-    paths-ignore:
-      - 'deploy/**'
   pull_request:
     branches: [ main ]
-    paths-ignore:
-      - 'deploy/**'
+    paths:
+      - 'spring-petclinic-api-gateway/**'
 
 jobs:
   build:
