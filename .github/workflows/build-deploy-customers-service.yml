@@ -50,7 +50,7 @@ jobs:
         with:
           namespace: ${{ secrets.NAMESPACE }}
           manifests: |
-             deploy/deployment.yaml
+             deploy/deploy-customers-service.yaml
           images: '${{ secrets.ACR_LOGIN_SERVER }}/spring-petclinic-customers-service:${{ github.sha }}'
           pull-images: false 
           imagepullsecrets: '${{ secrets.IMAGE_PULL_SECRET }}'

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-petclinic-customers-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-petclinic-customers-service
+  template:
+    metadata:
+      labels:
+        app: spring-petclinic-customers-service
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: spring-petclinic-customers-service
+        image: buildservicedemo.azurecr.io/spring-petclinic-customers-service
+        ports:
+        - containerPort: 8080
+          name: http
