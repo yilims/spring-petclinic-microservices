@@ -203,7 +203,7 @@
 	  <distributionManagement>
 			<repository>
 			  <id>central</id>
-			  <url>https://msazure.pkgs.visualstudio.com/AzureDMSS/_packaging/yilitest/maven/v1</url>
+			  <url>https://pkgs.visualstudio.com/AzureDMSS/_packaging</url>
 			  <releases>
 				<enabled>true</enabled>
 			  </releases>
