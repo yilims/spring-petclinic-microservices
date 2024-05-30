@@ -175,4 +175,41 @@
         </profile>
     </profiles>
 
+	<repositories>
+			<repository>
+			  <id>central</id>
+			  <url>https://msazure.pkgs.visualstudio.com/AzureDMSS/_packaging/yilitest/maven/v1</url>
+			  <releases>
+				<enabled>true</enabled>
+			  </releases>
+			  <snapshots>
+				<enabled>false</enabled>
+			  </snapshots>
+			</repository>
+		  </repositories>
+
+	  <pluginRepositories>
+	    <pluginRepository>
+	      <id>central</id>
+	      <url>https://msazure.pkgs.visualstudio.com/AzureDMSS/_packaging/yilitest/maven/v1</url>
+	      <releases>
+	        <enabled>true</enabled>
+	      </releases>
+	      <snapshots>
+	        <enabled>false</enabled>
+	      </snapshots>
+	    </pluginRepository>
+	  </pluginRepositories>
+	  <distributionManagement>
+			<repository>
+			  <id>central</id>
+			  <url>https://msazure.pkgs.visualstudio.com/AzureDMSS/_packaging/yilitest/maven/v1</url>
+			  <releases>
+				<enabled>true</enabled>
+			  </releases>
+			  <snapshots>
+				<enabled>false</enabled>
+			  </snapshots>
+			</repository>
+	  </distributionManagement>
 </project>
